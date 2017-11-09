@@ -587,6 +587,14 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
 #--------------------------------------------------------------------------
 #
 
+RUN apt-get update && apt-get install -y \
+    php5.6-imap \
+    mysql-client \
+    mongodb-clients \
+    pdftohtml
+
+RUN locale-gen da_DK.UTF-8 && apt-get install -y language-pack-da
+
 # Clean up
 USER root
 RUN apt-get clean && \
