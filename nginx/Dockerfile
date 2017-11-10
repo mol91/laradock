@@ -16,6 +16,7 @@ RUN apk update \
 RUN echo "upstream php-upstream { server ${PHP_UPSTREAM_CONTAINER}:${PHP_UPSTREAM_PORT}; }" > /etc/nginx/conf.d/upstream.conf \
     && rm /etc/nginx/conf.d/default.conf
 
-CMD ["nginx"]
+ADD init.sh /init.sh
+CMD /init.sh
 
 EXPOSE 80 443

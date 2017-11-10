@@ -360,6 +360,8 @@ RUN sed -i 's/^# *\(da_DK.UTF-8 UTF-8\)/\1/' /etc/locale.gen \
     && sed -i 's/^# *\(en_US.UTF-8 UTF-8\)/\1/' /etc/locale.gen \
     && locale-gen
 
+ADD init.sh /init.sh
+
 ADD ./laravel.ini /usr/local/etc/php/conf.d
 ADD ./xlaravel.pool.conf /usr/local/etc/php-fpm.d/
 
@@ -369,6 +371,6 @@ RUN usermod -u 1000 www-data
 
 WORKDIR /var/www
 
-CMD ["php-fpm"]
+CMD /init.sh
 
 EXPOSE 9000

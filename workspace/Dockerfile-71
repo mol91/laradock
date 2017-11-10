@@ -709,7 +709,6 @@ RUN apt-get -y install ca-certificates zip wget unzip xdg-utils \
   && mv chromedriver /usr/local/bin/ \
   && rm chromedriver_linux64.zip
 
-
 #RUN mkdir -p /opt/chromedriver \
   #&& wget https://chromedriver.storage.googleapis.com/${CHROME_DRIVER_VERSION}/chromedriver_linux64.zip \
   #&& unzip chromedriver_linux64.zip \
@@ -721,6 +720,11 @@ RUN apt-get -y install ca-certificates zip wget unzip xdg-utils \
 USER root
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+# Updating hosts file to allow access to nginx container through app.dev.obviux.dk - put domain in variable
+RUN echo "getent hosts nginx | awk '{ print \$1 \"\tapp.dev.obviux.dk\" }' >> /etc/hosts" >> ~/.bashrc
+
+# install supervisor
 
 # Set default work directory
 WORKDIR /var/www
